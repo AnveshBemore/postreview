@@ -11,19 +11,21 @@ def index(request):
         "msg_post":"",
     }
     return render(request,"index.html",msg)
-def post_index(request):
-    msg={
-        "msg":"",
-    }
-    return render(request,"post_index.html",msg)
-
 def post(request):
-    return render(request,"post_post.html")
+    cuname=str(curntUser.objects.first())
+    pdb=postdb.objects.all().exclude(uname=cuname)
+    
+    msg={
+        "unam":cuname,
+        "postsall":pdb,
+    }
+    return render(request,"post_post.html",msg)
     
 def signup(request):
     return render(request,"post_signup.html")
 
 def verifylogin(request):
+    curntUser.objects.all().delete()
     if request.method=="POST":
         unam=request.POST["username"]
         password=request.POST["password"]
@@ -40,15 +42,16 @@ def verifylogin(request):
                 crnt.save()
                 print("hellllllllllooooooooooo thiiiiiiis     iiiiiiiiiiissssss "+un)
                 print(str(un)+"]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
-                msg={
-                    "unam":un,
-                }
-                return render(request,"post_post.html",msg)
-        return redirect("post_signup")
+                return redirect("post_post")
+        msg={
+            "msg":"not a user please signup",
+        }
+        return render(request,"post_signup.html",msg)
     return redirect("post_post")
 
 
 def signupdb(request):
+    curntUser.objects.all().delete()
     print(request.method+"------------------")
     if request.method=="POST":
         print("entered post")
@@ -59,15 +62,18 @@ def signupdb(request):
         print(search)
         if not search:
             ude=udetails(uname=unam,password=password,email=email)
+            crnt=curntUser(uname=unam)
+            crnt.save()
             print("signup login------------------- uname"+unam+"  pasw "+password)
             ude.save()
         else:            
             user={
                 "msg_post":"*already user please login",
                 "msg_review":"",
+                "unam":unam
 
             }
-            return render(request,"post_index.html",user)
+            return render(request,"post_post.html",user)
         return redirect("post_post")
 
     return redirect("post_post")
@@ -85,12 +91,12 @@ def new_post_add_db(request):
     if request.method=="POST" and request.FILES["img-choose-file"]:
         cuname=str(curntUser.objects.first())
         imgp=request.FILES["img-choose-file"]
-        capt=request.POST["caption"]
+        capt=request.POST["caption"] 
         fs = FileSystemStorage()
         filename = fs.save(imgp.name, imgp)
         pdb=postdb(uname=cuname,post_img=imgp.name,post_caption=capt)
         pdb.save()
-        return render(request,"post_post.html",{"unam":cuname,})
+        return redirect("post_post")
 
 def my_posts(request):
     cuname=str(curntUser.objects.first())
@@ -106,13 +112,13 @@ def delete_post(request):
     return redirect("new_post")
 
 def update_post(request):
-    unam=request.GET["uname"]
+    unam=request.GET["uname"] 
     img=request.GET["img"]
     cap=request.GET["caption"]
     id=request.GET["id"]
     
     print(cap+" -------------")
-    return render(request,"update_post.html",{"capval":cap,"id":id,})
+    return render(request,"update_post.html",{"capval":cap,"id":id,"unam":unam})
 def update_post_db(request):
     if request.method=="POST" and request.FILES["img-choose-file"]:
         cuname=str(curntUser.objects.first())
@@ -132,5 +138,5 @@ def update_post_db(request):
         pdb=postdb.objects.filter(id=id).update(post_img=imgp.name)
         pdb=postdb.objects.filter(id=id).update(post_caption=capt)
 
-        return render(request,"post_post.html",{"unam":cuname,})
-    return redirect("my_posts")
+        return redirect("post_post")
+    return redirect("post_posts")

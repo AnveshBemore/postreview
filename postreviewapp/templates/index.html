@@ -13,7 +13,7 @@
       :root {
         --font-size: 1.25rem;
         --clr-primay: #0d3b66;
-        --clr-secondary: #95bbdb;
+        --clr-secondary: #f4f4f6;
         --clr-white: #fbfcff;
         --radius: 0.25rem;
         --trasition:all 0.3s linear;
@@ -44,6 +44,7 @@
       }
       .btn:hover {
         background: var(--clr-secondary);
+        color: black;
       }
       /* login */   
         .post{
@@ -141,7 +142,7 @@
                   <div class="login"><button class="btn-login btn">Login</button></div>
                   <div class="already-user">{{msg}}</div>
                   <span class="not-user">Not a user?</span
-                  ><a href="{%url 'post_signup'%}" class="register">signup</a>
+                  ><a href="{%url 'post_signup'%}" class="register btn">signup</a>
                 </div>
               </form>
         </span>
@@ -177,7 +178,7 @@
                   <div class="login"><button class="btn-login btn">Login</button></div>
                   <div class="already-user">{{msg}}</div>
                   <span class="not-user">Not a user?</span
-                  ><a href="{%url 'review_signup'%}" class="register">signup</a>
+                  ><a href="{%url 'review_signup'%}" class="register btn">signup</a>
                 </div>
               </form>
         </span>

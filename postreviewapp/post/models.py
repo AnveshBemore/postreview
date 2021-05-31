@@ -18,7 +18,7 @@ class curntUser(models.Model):
 class postdb(models.Model):
     uname=models.CharField(max_length=100,default="")
     post_img=models.ImageField(upload_to="media")
-    post_caption=models.CharField(max_length=200,default="")
+    post_caption=models.CharField(max_length=300,default="")
     post_reviews=models.CharField(max_length=300,default="")
     def __str__(self):
         return str(self.post_img)

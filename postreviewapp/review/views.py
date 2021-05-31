@@ -15,15 +15,13 @@ def index(request):
     return render(request,"index.html",msg)
 def review(request):
     crunam=str(crntReviewUser.objects.first())
+    pdb=postdbr.objects.all()
     msg={
-        "unam":crunam
+        "unam":crunam,
+        "postsall":pdb,
     }
     return render(request,"review.html",msg)
-def review_index(request):
-    msg={
-        "msg":"",
-    }
-    return render(request,"review_index.html",msg)
+
 
 def post(request):
     return render(request,"review_post.html")
@@ -32,6 +30,7 @@ def signup(request):
     return render(request,"review_signup.html")
 
 def verifylogin(request):
+    crntReviewUser.objects.all().delete()
     if request.method=="POST":
         unam=request.POST["username"]
         password=request.POST["password"]
@@ -48,15 +47,16 @@ def verifylogin(request):
                 crtu.save()
                 print("hellllllllllooooooooooo thiiiiiiis     iiiiiiiiiiissssss "+un)
                 print(str(un)+"]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
-                return redirect("new_review")
+                return redirect("review")
         msg={
             "msg":"not a user please signup",
         }
         return render(request,"review_signup.html",msg)
-    return redirect("new_review")
+    return redirect("review")
 
 
 def signupdb(request):
+    crntReviewUser.objects.all().delete()
     print(request.method+"------------------")
     if request.method=="POST":
         print("entered post")
@@ -70,19 +70,21 @@ def signupdb(request):
             ude=udetails(uname=unam,password=password,email=email)
             print("signup login------------------- uname"+unam+"  pasw "+password)
             ude.save()
+            cr=crntReviewUser(uname=unam)
+            cr.save()
         else:            
             user={
                 "msg_reivew":"*already user please signup",
                 "msg_post":"",
+                "unam":unam,
             }
-            return render(request,"review_index.html",user)
+            return render(request,"index.html",msg)
         return redirect("review")
 
     return redirect("review")
     # return redirect("")
 def new_review(request):
-    crunam=str(crntReviewUser.objects.first())
-    
+    crunam=str(crntReviewUser.objects.first())    
     pdb=postdbr.objects.all()
     return render(request,"new_review.html",{"postsall":pdb,"unam":crunam,})
 def add_review(request):
@@ -104,10 +106,10 @@ def add_review(request):
     imgd.save()
     imgd=postdbr.objects.get(id=id)
     print(imgd.post_reviews+" --------------asfafgfagderet------------")
-    myrev=my_reviews(postuname=un,postimg=img,postcaption=cap,review=rev)
+    myrev=myreviews(postuname=un,postimg=img,postcaption=cap,review=rev)
     myrev.save()
     # print(x+" --------------------------")
-    return redirect("new_review")
+    return redirect("review")
 def my_reviews(request):
     crunam=str(crntReviewUser.objects.first())
     myrev=myreviews.objects.all()

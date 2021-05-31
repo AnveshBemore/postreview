@@ -9,4 +9,4 @@ urlpatterns=[
     path("add_review",views.add_review,name="add_review"),
     path("my_reviews",views.my_reviews,name="my_reviews"),
     
-]
+] 
