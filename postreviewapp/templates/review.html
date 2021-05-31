@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Review</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body{
+        
+        box-sizing: border-box;
+      }
+      :root {
+        --font-size: 1.25rem;
+        --clr-primay: #0d3b66;
+        --clr-secondary: #95bbdb;
+        --clr-white: #fbfcff;
+        --radius: 0.5rem;
+        --trasition: all 0.3s linear;
+      }
+      a {
+        text-decoration: none;
+      }
+      input {
+        width: 15rem;
+        height: 2.25rem;
+        margin: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      .btn {
+        padding: 0.35rem 5rem;
+        background: var(--clr-primay);
+        border-radius: var(--radius);
+        transition: var(--trasition);
+        color: var(--clr-white);
+      }
+      .btn:hover {
+        background: var(--clr-secondary);
+      }
+      div {
+        display: inline-block;
+      }
+      .header {
+        height: 5rem;
+        background: var(--clr-primay);
+        width: 100vw;
+        font-size: 1.75rem;
+        padding: 1.25rem;
+      }
+      .postreview {
+        color: var(--clr-white);
+        margin-right: 45rem;
+      }
+      .post-index {
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: wheat;
+        /* margin-bottom: 1.885rem; */
+      }
+      .post-frame {
+        float: left;
+        width: 60%;
+        position: relative;
+        height: calc(100vh - 140px);
+        background: violet;
+        margin: 0 1.885rem;
+        margin-top: 1.885rem;
+        border-radius: 1.5rem;
+        box-shadow: 0px 5px 15px #b2bdbd;
+      }
+      .my-profile-frame {
+        position: relative;
+        width: 30%;
+        height: calc(100vh - 140px);
+        background: var(--clr-primay);
+        margin: 0 1.885rem;
+        margin-top: 1.885rem;
+        border-radius: 1.5rem;
+      }
+      .my-profile {
+        padding: 1rem;
+        font-size: var(--font-size);
+        margin: 0 35%;
+        margin-top: 1.885rem;
+        background: yellow;
+        text-align: center;
+      }
+      .icon-profile {
+        width: 7rem;
+        height: 7rem;
+        background: lightblue;
+        transform: translate(170px, 50px);
+        border-radius: 50%;
+      }
+      .user-name {
+        padding: 0.35rem 5rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(20px, 120px);
+      }
+      .home {
+        padding: 0.35rem 5rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(135px, 150px);
+      }
+      .my-posts {
+        padding: 0.35rem 4rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(-75px, 210px);
+      }
+      .new-post {
+        padding: 0.35rem 4rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(135px, 240px);
+      }
+      .signout-btn{
+        padding: 0.5rem 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- header -->
+    <form action="" method="POST">
+      <div class="header">
+        <span class="postreview">Post Review</span>
+        <input type="text" class="search-user" />
+        <button class="search-btn btn" type="submit">search</button>
+        <a href="index"><span class="signout-btn btn">signout</span></a>
+      </div>
+    </form>
+    <!-- end of header -->
+    <!-- my posts -->
+    <div class="post-index">
+      <div class="post-frame"></div>
+      <div class="my-profile-frame">
+        <span class="my-profile">My Profile</span>
+        <div class="icon-profile"></div>
+        <div class="user-name btn">{{unam}}</div>
+        <a href="{%url 'new_review'%}" class="new-reviw"><div class="home btn">Home</div></a>
+        <a href="#" class="posts-my"><div class="my-posts btn">My Review</div></a>
+        <div class="new-post btn">
+          
+        </div>
+      </div>
+    </div>
+    <!-- end of my posts -->
+  </body>
+</html>

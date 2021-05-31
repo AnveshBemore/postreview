@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         * {
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --font-size: 1.25rem;
+        --clr-primay: #0d3b66;
+        --clr-secondary: #95bbdb;
+        --clr-white: #fbfcff;
+        --radius: 0.25rem;
+        --trasition:all 0.3s linear;
+      }
+      body {
+        font-size: var(--font-size);
+        /* color: ; */
+        line-height: 1.5;
+        background: var(--clr-white);
+        box-sizing: border-box;
+      }
+      a {
+        text-decoration: none;
+      }
+      input {
+        width: 15rem;
+        height: 2.25rem;
+        margin: 0.5rem;
+        margin-bottom: 1rem;
+      }
+      /* global variavles */
+      .btn {
+        padding: 6px;
+        background: var(--clr-primay);
+        border-radius: var(--radius);
+        transition: var(--trasition);
+        color: var(--clr-white);
+      }
+      .btn:hover {
+        background: var(--clr-secondary);
+      }
+      /* login */   
+        .post{
+            float: left;
+            width: 27rem;
+            height: 30rem;
+            position: fixed;
+            border-radius: 2rem;
+            padding: 2rem;
+            text-align: center;
+            left: 20%;
+            bottom: 50%;
+            transition: var(--trasition);
+            transform: translate(-40%, 50%);
+            box-shadow: 0px 5px 15px #b2bdbd;
+        }
+        .review{
+            float: left;
+            width: 27rem;
+            height: 30rem;
+            position: relative;
+            border-radius: 2rem;
+            padding: 2rem;
+            text-align: center;
+            position: fixed;
+            left: 70%;
+            bottom: 50%;
+            transition: var(--trasition);
+            transform: translate(-40%, 50%);
+            box-shadow: 0px 5px 15px #b2bdbd;
+
+        }
+        .icon-profile {
+        width: 7rem;
+        height: 7rem;
+        background: lightblue;
+        margin: auto;
+        margin-bottom: 1.5rem;
+      }
+      ::placeholder {
+        font-size: 1rem;
+        color: #d3d3d3;
+      }
+      .btn-login {
+        padding: 0.25rem 6.25rem;
+      }
+      .login {
+        margin-bottom: 1rem;
+      }
+      .not-user {
+        margin-right: 4.5rem;
+      }
+      .already-user{
+        color: red;
+        font-size: 1rem;
+
+      }
+      @media screen and (min-width:992px){
+        .login-frame{
+          max-width: 27rem;
+        }
+      }
+      /*end of login */
+    </style>
+</head>
+<body>
+    <span class="fram">
+        <span class="post">
+          <span class="post-user">Login as Post User</span>
+            <form action="post_verifylogin" method="POST">
+                <div class="login-frame">
+                  <!-- <i class="fas fa-user"></i> -->
+                  <div class="icon-profile"></div>
+          
+                  {% csrf_token %}
+                  <div class="input-email">
+                    <input
+                      type="text"
+                      class="username"
+                      name="username"
+                      placeholder="Username"
+                    />
+                  </div>
+                  <!-- <div class="input-email">
+                  <input type="text" class="email" placeholder="Email" />
+                </div> -->
+                  <div class="input-password">
+                    <input
+                      type="password"
+                      class="password"
+                      name="password"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="login"><button class="btn-login btn">Login</button></div>
+                  <div class="already-user">{{msg}}</div>
+                  <span class="not-user">Not a user?</span
+                  ><a href="{%url 'post_signup'%}" class="register">signup</a>
+                </div>
+              </form>
+        </span>
+
+        <!-- reivew user login -->
+        <span class="review">
+          <span class="reviwer">Login as reviewer</span>
+            <form action="review_verifylogin" method="POST">
+                <div class="login-frame">
+                  <!-- <i class="fas fa-user"></i> -->
+                  <div class="icon-profile"></div>
+          
+                  {% csrf_token %}
+                  <div class="input-email">
+                    <input
+                      type="text"
+                      class="username"
+                      name="username"
+                      placeholder="Username"
+                    />
+                  </div>
+                  <!-- <div class="input-email">
+                  <input type="text" class="email" placeholder="Email" />
+                </div> -->
+                  <div class="input-password">
+                    <input
+                      type="password"
+                      class="password"
+                      name="password"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div class="login"><button class="btn-login btn">Login</button></div>
+                  <div class="already-user">{{msg}}</div>
+                  <span class="not-user">Not a user?</span
+                  ><a href="{%url 'review_signup'%}" class="register">signup</a>
+                </div>
+              </form>
+        </span>
+    </span>
+    </div>
+</body>
+</html>

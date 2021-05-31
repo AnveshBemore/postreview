@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --font-size: 1.25rem;
+        --clr-primay: #0d3b66;
+        --clr-secondary: #95bbdb;
+        --clr-white: #fbfcff;
+        --radius: 0.5rem;
+        --trasition: all 0.3s linear;
+      }
+      a {
+        text-decoration: none;
+      }
+      input {
+        width: 15rem;
+        height: 2.25rem;
+        margin: 0.5rem;
+        margin-bottom: 1rem;
+        padding-top: 0;
+        padding-left: 0;
+      }
+      .btn {
+        padding: 0.35rem 5rem;
+        background: var(--clr-primay);
+        border-radius: var(--radius);
+        transition: var(--trasition);
+        color: var(--clr-white);
+      }
+      .btn:hover {
+        background: var(--clr-secondary);
+      }
+      div {
+        display: inline-block;
+      }
+      .header {
+        height: 5rem;
+        background: var(--clr-primay);
+        width: 100vw;
+        font-size: 1.75rem;
+        padding: 1.25rem;
+      }
+      .postreview {
+        color: var(--clr-white);
+        margin-right: 45rem;
+      }
+      .post-index {
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: wheat;
+        /* margin-bottom: 1.885rem; */
+      }
+      .new-post-frame {
+        float: left;
+        width: 60%;
+        position: relative;
+        height: calc(100vh - 140px);
+        background: violet;
+        margin: 0 1.885rem;
+        margin-top: 1.885rem;
+        border-radius: 1.5rem;
+        box-shadow: 0px 5px 15px #b2bdbd;
+      }
+      .my-profile-frame {
+        position: relative;
+        width: 30%;
+        height: calc(100vh - 140px);
+        background: var(--clr-primay);
+        margin: 0 1.885rem;
+        margin-top: 1.885rem;
+        border-radius: 1.5rem;
+      }
+      .my-profile {
+        padding: 1rem;
+        font-size: var(--font-size);
+        margin: 0 35%;
+        margin-top: 1.885rem;
+        background: yellow;
+        text-align: center;
+      }
+      .icon-profile {
+        width: 7rem;
+        height: 7rem;
+        background: lightblue;
+        transform: translate(170px, 50px);
+        border-radius: 50%;
+      }
+      .user-name {
+        padding: 0.35rem 5rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(20px, 120px);
+      }
+      .home {
+        padding: 0.35rem 5rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(135px, 150px);
+      }
+      .my-posts {
+        padding: 0.35rem 4rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(-75px, 210px);
+      }
+      .new-post {
+        padding: 0.35rem 4rem;
+        font-size: var(--font-size);
+        text-align: center;
+        background: red;
+        transform: translate(135px, 240px);
+      }
+      .new-post-header,.img-input {
+        padding: 1rem;
+        font-size: var(--font-size);
+        margin: 0 40%;
+        margin-top: 1.885rem;
+        background: yellow;
+        text-align: center;
+        border-radius: 10px;
+      }
+      .img-input{
+        padding: 2rem;
+        margin: 20% 30%;
+        margin-top: 5rem;
+      }
+      .caption{
+        width: 20rem;
+        height: 10rem;
+        font-size: 20px;
+        border-radius: 10px;
+        color: black;
+        transform: translate(85%,-90%);
+      }
+      .post-img-frame{
+        margin-top: 0px;
+        transform: translateY(-250%);
+      }
+      .signout-btn{
+        padding: 0.5rem 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="header">
+        <span class="postreview">Post Review</span>
+        <input type="text" class="search-user" />
+        <button class="search-btn btn" type="submit">search</button>
+        <a href="index"><span class="signout-btn btn">signout</span></a>
+      </div>
+    </form>
+    <!-- end of header -->
+    <!-- my posts -->
+    <div class="post-index">
+      <form action="new_post_add_db" class="img-file" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="new-post-frame">
+        <div class="new-post-header">New Post</div>
+        <div class="img-input">
+          <input type="file" name="img-choose-file" class="choose-file" accept="image/*" />
+        </div>
+        <textarea name="caption" class="caption" id="" cols="30" rows="10"maxlength="200" placeholder="max 200 charaacter"></textarea>
+        <button type="submit" class="post-img-frame btn">Post</button>
+      </form>
+      </div>
+      <div class="my-profile-frame">
+        <span class="my-profile">My Profile</span>
+        <div class="icon-profile"></div>
+        <div class="user-name btn">{{unam}}</div>
+        <div class="home btn">Home</div>
+        <a href="{%url 'my_posts'%}" class="posts-my"><div class="my-posts btn">My Posts</div></a>
+        <div class="new-post btn">
+          <a href="{%url 'new_post'%}" class="new_post">New Post</a>
+        </div>
+      </div>
+    </div>
+    <!-- end of my posts -->
+  </body>
+</html>
